@@ -3,8 +3,7 @@ package com.springmvc.repository;
 import com.springmvc.domain.Book;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class BookRepositoryImpl implements BookRepository {
@@ -67,8 +66,37 @@ public class BookRepositoryImpl implements BookRepository {
                 booksByCategory.add(book);
                                             // 도서 목록 i번째의 도서 정보를 booksByCategory에 저장함.
         }
-
         return booksByCategory; // category 일치하는 도서 반환
+    }
+
+    @Override
+    public Set<Book> getBookListByFilter(Map<String, List<String>> filter) {
+        Set<Book> booksByPublisher = new HashSet<Book>();
+        Set<Book> booksByCategory = new HashSet<Book>();
+
+        Set<String> bookByFilter = filter.keySet();
+
+        if (bookByFilter.contains("publisher")) {
+            for (int j = 0; j < filter.get("publisher").size(); j++) {
+                String publisherName = filter.get("publisher").get(j);
+                for (int i = 0; i < listOfBooks.size(); i++) {
+                    Book book = listOfBooks.get(i);
+
+                    if (publisherName.equalsIgnoreCase((book.getPublisher()))) {
+                        booksByPublisher.add(book);
+                    }
+                }
+            }
+        }
+        if (bookByFilter.contains("category")) {
+            for (int i = 0; i < filter.get("category").size(); i++) {
+                String category = filter.get("category").get(i);
+                List<Book> list = getBookListByCategory(category);
+                booksByCategory.addAll(list);
+            }
+        }
+        booksByCategory.retainAll(booksByPublisher);
+        return booksByCategory;
     }
 
     @Override

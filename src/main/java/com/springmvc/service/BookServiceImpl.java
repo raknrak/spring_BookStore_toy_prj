@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -22,6 +24,12 @@ public class BookServiceImpl implements BookService {
         // 저장소 객체에서 일치하는 도서 목록을 가져와서 저장
         List<Book> booksByCategory = bookRepository.getBookListByCategory(category);
         return booksByCategory; // 도서목록이 저장된 도서 목록 객체 반환
+    }
+
+    @Override
+    public Set<Book> getBookListByFilter(Map<String, List<String>> filter) {
+        Set<Book> booksByFilter = bookRepository.getBookListByFilter(filter);
+        return booksByFilter;
     }
 
     @Override
