@@ -17,4 +17,10 @@ public class BookServiceImpl implements BookService {
         return bookRepository.getAllBookList(); // 저장된 도서 목록을 가져옴.
 
     }
+    @Override
+    public List<Book> getBookListByCategory(String category) {
+        // 저장소 객체에서 일치하는 도서 목록을 가져와서 저장
+        List<Book> booksByCategory = bookRepository.getBookListByCategory(category);
+        return booksByCategory; // 도서목록이 저장된 도서 목록 객체 반환
+    }
 }

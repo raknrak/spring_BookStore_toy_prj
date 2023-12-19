@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 // @RequestMapping("/chap06")
 public class Example01Controller {
 
+    //{bookId}: 경로변수
     @GetMapping("/exam01/{bookId}")
     public String requestMethod(@PathVariable String bookId, Model model){
         System.out.println("도서 ID : " + bookId);

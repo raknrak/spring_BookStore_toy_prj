@@ -55,5 +55,20 @@ public class BookRepositoryImpl implements BookRepository {
         public List<Book> getAllBookList() {
             return listOfBooks;
         }
+
+    @Override
+    public List<Book> getBookListByCategory(String category) {
+        List<Book> booksByCategory = new ArrayList<Book>(); // 메모리 공간을 만듦
+        for (int i = 0; i < listOfBooks.size(); i++) { // 책의 목록을 다 찾아보고
+            Book book = listOfBooks.get(i);
+            // 실행문이 한 줄이라 if문에 중괄호 생략 가능.
+            // 대소문자에 관계없이 매개변수 category와 도서분야가 일치하는 - 같은 카테고리들만.
+            if (category.equalsIgnoreCase(book.getCategory())) // 카테고리가 같을 때 추가해라.
+                booksByCategory.add(book);
+                                            // 도서 목록 i번째의 도서 정보를 booksByCategory에 저장함.
+        }
+
+        return booksByCategory; // category 일치하는 도서 반환
     }
+}
 

@@ -3,7 +3,7 @@ package com.springmvc.chap05;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+//@Controller
 @RequestMapping("/home")
 public class Example04Controller {
 

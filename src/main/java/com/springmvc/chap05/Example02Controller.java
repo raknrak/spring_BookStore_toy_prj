@@ -3,7 +3,7 @@ package com.springmvc.chap05;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+//@Controller
 @RequestMapping(value="/spring") //, method= RequestMethod.GET) // 생략 가능
 public class Example02Controller {
 
