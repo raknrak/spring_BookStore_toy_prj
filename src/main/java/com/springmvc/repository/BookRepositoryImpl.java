@@ -70,5 +70,21 @@ public class BookRepositoryImpl implements BookRepository {
 
         return booksByCategory; // category 일치하는 도서 반환
     }
+
+    @Override
+    public Book getBookById(String bookId) {
+        Book bookInfo = null; // 초기화
+        for (int i = 0; i < listOfBooks.size(); i++) {
+            Book book = listOfBooks.get(i);
+            if(book != null && book.getBookId() != null && book.getBookId().equals(bookId)){
+                bookInfo=book;
+                break;
+            }
+        }
+        if (bookInfo== null)
+            throw new IllegalArgumentException("도서 ID가 " + bookId + "인 해당 도서를 찾을 수 없습니다.");
+
+        return bookInfo;
+    }
 }
 

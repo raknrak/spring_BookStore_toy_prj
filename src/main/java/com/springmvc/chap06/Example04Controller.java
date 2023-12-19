@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+//@Controller
 @RequestMapping("/test")
 public class Example04Controller {
 

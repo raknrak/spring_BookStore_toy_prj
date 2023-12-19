@@ -23,4 +23,10 @@ public class BookServiceImpl implements BookService {
         List<Book> booksByCategory = bookRepository.getBookListByCategory(category);
         return booksByCategory; // 도서목록이 저장된 도서 목록 객체 반환
     }
+
+    @Override
+    public Book getBookById(String bookId) {
+        Book bookById = bookRepository.getBookById(bookId);
+        return bookById;
+    }
 }

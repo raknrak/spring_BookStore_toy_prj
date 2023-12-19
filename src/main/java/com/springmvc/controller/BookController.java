@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -51,9 +52,16 @@ public class BookController {
     public String requestBooksByCategory(@PathVariable("category") String bookCategory, Model model) {
         //bookCategory와 일치하는 도서 목록을 서비스 객체에서 가져와 booksByCategory에 저장
         List<Book> booksByCategory = bookService.getBookListByCategory(bookCategory);
-        // 키 이름 : 북 리스트 , 
+        // 키 이름 : 북 리스트 ,
         model.addAttribute("bookList", booksByCategory); // 값을 모델 속성 booklist에 저장 후 출력
         return "books"; // books.jsp
+    }
+
+    @GetMapping("/book")
+    public String requestBookById(@RequestParam("id") String bookId, Model model){
+        Book bookById = bookService.getBookById(bookId);
+        model.addAttribute("book", bookById);
+        return "book"; // book.jsp
     }
 }
 

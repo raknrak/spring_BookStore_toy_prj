@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-@Controller
+//@Controller
 @RequestMapping("/test")
 public class Example03Controller {
    // 패키지의 위치가 중요한 것이 아니라
