@@ -37,4 +37,9 @@ public class BookServiceImpl implements BookService {
         Book bookById = bookRepository.getBookById(bookId);
         return bookById;
     }
+
+    @Override
+    public void setNewBook(Book book) {
+        bookRepository.setNewBook(book); // 신규 도서 정보를 저장소 객체에 저장하는 메서드
+    }
 }

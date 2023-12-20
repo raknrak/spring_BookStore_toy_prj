@@ -72,9 +72,27 @@ public class BookController {
         return "books";
     }
 
-    @GetMapping("/add")
+   /* @GetMapping("/add")
     public String requestAddBookForm(Book book) {
         return "addBook";
+    } 기존에서 아래로 수정*/
+    @GetMapping("/add")
+    public String requestAddBookForm(@ModelAttribute("NewBook") Book book) {
+
+        return "addBook";
+    }
+    @PostMapping("/add")
+    public String submitAddNewBook(@ModelAttribute("NewBook") Book book) {
+        bookService.setNewBook(book);
+        return "redirect:/books"; // 웹 요청 URL을 강제로 /books로 이동시켜 매핑함.
+    }
+    @ModelAttribute
+    public void addAttribute(Model model) {
+        model.addAttribute("addTitle", "신규 도서 등록");
+    }
+
+    public void initBinder(WebDataBinder binder) {
+        binder.setAllowedFields("bookId", "name","unitPrice","author","description","publisher","category","unitsInStock","totalPages","releaseDate","condition");
     }
 
 
