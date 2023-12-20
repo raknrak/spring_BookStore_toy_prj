@@ -18,6 +18,11 @@
 </nav>
 <div class="jumbotron">
     <div class="container">
+        <div class="float-right">
+            <form:form action="${pageContext.request.contextPath}/logout" method="POST">
+                <input type="submit" class="btn btn-sm btn-success" value="logout"/>
+            </form:form>
+        </div>
         <h1 class="display-3">도서 목록</h1>
     </div>
 </div>

@@ -94,6 +94,10 @@ public class BookController {
     public void initBinder(WebDataBinder binder) {
         binder.setAllowedFields("bookId", "name","unitPrice","author","description","publisher","category","unitsInStock","totalPages","releaseDate","condition");
     }
+    @GetMapping("/logout")
+    public String logout(Model model) {
+        return "login";
+    }
 
 
 }
