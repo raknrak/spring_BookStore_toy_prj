@@ -18,11 +18,6 @@
 </nav>
 <div class="jumbotron">
     <div class="container">
-        <div class="float-right">
-            <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                <input type="submit" class="btn btn-sm btn-success" value="logout"/>
-            </form:form>
-        </div>
         <h1 class="display-3">도서 목록</h1>
     </div>
 </div>
@@ -30,19 +25,27 @@
     <div class="row" align="center">
         <c:forEach items="${bookList}" var="book">
             <div class="col-md-4">
+                <c:choose>
+                    <c:when test="${book.getBookImage()==null}">
+                        <img src="${pageContext.request.contextPath}/upload/${book.getBookId()}.png" style="width: 60%"/>
+                    </c:when>
+                    <c:otherwise>
+                        <img src="${pageContext.request.contextPath}/upload/${book.getBookImage().getOriginalFilename()}"style="width: 60%" />
+                    </c:otherwise>
+                </c:choose>
+
                 <h3>${book.name}</h3>
                 <p>${book.author}
                     <br> ${book.publisher} | ${book.releaseDate}
                 <p align=left>${fn:substring(book.description, 0, 100)}...
                 <p>${book.unitPrice}원
-                <p><a href="<c:url value="/books/book?id=${book.bookId}"/>" class="btn btn-Secondary" role="button">
-            상세정보 &raquo;</a></p>
+                <p><a href="<c:url  value="/books/book?id=${book.bookId}"/>" class="btn btn-Secondary" role="button">상세정보 &raquo;</a>
             </div>
         </c:forEach>
     </div>
     <hr>
     <footer>
-        <p> &copy BookMarket</p>
+        <p>&copy; BookMarket</p>
     </footer>
 </div>
 </body>

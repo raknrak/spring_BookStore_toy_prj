@@ -116,8 +116,8 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public void setNewBook(Book book) {
-        listOfBooks.add(book);
+    public void setNewBook(Book book) { // 신규 도서 정보 저장 메서드
+        listOfBooks.add(book); // 신규 도서 정보를 listOfBooks에 추가로 저장
 
     }
 }

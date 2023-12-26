@@ -1,6 +1,7 @@
 package com.springmvc.domain;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -10,19 +11,22 @@ import lombok.*;
 public class Book {
     private String bookId;            // 도서Id
     private String name;              // 도서명
-    private int unitPrice;         // 도서 가격
+    private int unitPrice;            // 도서 가격
     private String author;            // 저자
     private String description;       // 설명
     private String publisher;         // 출판사
     private String category;          //분류
-    private long unitsInStock;           // 재고
+    private long unitsInStock;        // 재고
     private String releaseDate;       // 출판일(월/년)
     private String condition;         // 신규 도서 또는 중고 도서 또는 전자책
+    private MultipartFile bookImage;  // 도서 이미지
 
 
     public Book(String bookId, String name, int unitPrice) {
+        super();
         this.bookId = bookId;
         this.name = name;
         this.unitPrice = unitPrice;
     }
+
 }

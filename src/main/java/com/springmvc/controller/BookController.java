@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -83,22 +85,38 @@ public class BookController {
     }
     @PostMapping("/add")
     public String submitAddNewBook(@ModelAttribute("NewBook") Book book) {
+        // 이미지 등록을 위한 수정
+        MultipartFile bookImage = book.getBookImage();
+
+        String saveName = bookImage.getOriginalFilename();
+        File saveFile = new File("C:\\upload", saveName);
+
+        if (bookImage != null && !bookImage.isEmpty()) {
+            try {
+                bookImage.transferTo(saveFile);
+            } catch (Exception e) {
+                throw new RuntimeException("도서 이미지 업로드가 실패하였습니다", e);
+            }
+        }
         bookService.setNewBook(book);
-        return "redirect:/books"; // 웹 요청 URL을 강제로 /books로 이동시켜 매핑함.
+        return "redirect:/books";  // 웹 요청 URL을 강제로 /books로 이동시켜 매핑함.
     }
-    @ModelAttribute
+    @ModelAttribute // 메서드 수준의 @ModelAttribute 선언
     public void addAttribute(Model model) {
+        // 모델 속성 addTitle에 신규 도서 등록을 저장함.
         model.addAttribute("addTitle", "신규 도서 등록");
     }
 
+    @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.setAllowedFields("bookId", "name","unitPrice","author","description","publisher","category","unitsInStock","totalPages","releaseDate","condition");
+        binder.setAllowedFields("bookId","name","unitPrice","author", "description",
+                "publisher","category","unitsInStock","totalPages", "releaseDate", "condition", "bookImage");
     }
+
     @GetMapping("/logout")
     public String logout(Model model) {
         return "login";
     }
-
 
 }
 

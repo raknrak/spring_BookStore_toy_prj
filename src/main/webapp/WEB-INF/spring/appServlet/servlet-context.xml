@@ -20,11 +20,25 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+
+	<context:component-scan base-package="com.springmvc.*" />
+	<resources mapping="/resources/**" location="/resources/" />
+	<!--스프링의 멀티파트 기능을 이용하기 위한 MultipartResolver 등록-->
+	<beans:bean id="multipartResolver"
+				class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10240000" />
+	</beans:bean>
+		<!--<beans:property name="defaultEncoding" value="utf-8"/>
+		<beans:property name="uploadTempDir" ref="uploadDirResource"/>-->
+
+	<!--<beans:bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+		<beans:constructor-arg value="c/upload" />
+	</beans:bean>-->
 	
 <!--	<context:component-scan base-package="com.springmvc.controller" />를 변경-->
 	<!--속성의 공통값으로 변경 -> *(Wild Card 문자)-->
-	<context:component-scan base-package="com.springmvc.*" />
-	
+
+	<resources mapping="/upload/**" location="file:///C:/upload/" />
 	
 	
 </beans:beans>

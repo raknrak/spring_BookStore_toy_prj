@@ -16,6 +16,7 @@ public interface BookRepository {
     Book getBookById(String bookId);
 
     // NewBook을 넣겠다?
-        void setNewBook(Book book); // 값을 주므로 set , 가져오면 get
+    // 신규 도서 정보 저장
+    void setNewBook(Book book); // 값을 주므로 set , 가져오면 get
 
 }

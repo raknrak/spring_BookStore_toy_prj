@@ -29,14 +29,17 @@
     </div>
     <br><br>
 <%--커맨드 객체 수정  --%>
-    <form:form modelAttribute = "NewBook" class="form-horizontal" >
+    <form:form modelAttribute = "NewBook"
+               action="./add?${_csrf.parameterName}=${_csrf.token}"
+               class="form-horizontal"
+               enctype="multipart/form-data">
         <fieldset>
-            <%--커트롤러에서 전달된 모델 속성 이름 addTitle 값을 출력--%>
+            <%--컨트롤러에서 전달된 모델 속성 이름 addTitle 값을 출력--%>
             <legend>${addTitle}</legend>
             <div class="form-group row">
                 <label class="col-sm-2 control-label">도서 ID</label>
                 <div class="col-sm-3">
-                    <form:input  path="bookId"  class="form-control"place/>
+                    <form:input  path="bookId"  class="form-control"/>
                 </div>
             </div>
             <div class="form-group row">
@@ -96,6 +99,12 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-sm-2 control-label" >도서이미지</label>
+                <div class="col-sm-7">
+                    <form:input path="bookImage" type="file" class="form-control" />
+                </div>
+            </div>
+                <div class="form-group row">
                 <div class="col-sm-offset-2 col-sm-10" >
                     <input type="submit" class="btn btn-primary" value ="등록"/>
                 </div>

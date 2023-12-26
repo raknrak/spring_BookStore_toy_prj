@@ -39,7 +39,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void setNewBook(Book book) {
-        bookRepository.setNewBook(book); // 신규 도서 정보를 저장소 객체에 저장하는 메서드
+    public void setNewBook(Book book) { // 신규 도서 정보를 저장소 객체에 저장하는 메서드
+        bookRepository.setNewBook(book); // 저장소 객체의 setNewBook메서드 호출
     }
 }
