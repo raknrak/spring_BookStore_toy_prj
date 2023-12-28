@@ -1,6 +1,8 @@
 package com.springmvc.controller;
 
 import com.springmvc.domain.Book;
+import com.springmvc.exception.BookIdException;
+import com.springmvc.exception.CategoryException;
 import com.springmvc.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +57,9 @@ public class BookController {
     public String requestBooksByCategory(@PathVariable("category") String bookCategory, Model model) {
         //bookCategory와 일치하는 도서 목록을 서비스 객체에서 가져와 booksByCategory에 저장
         List<Book> booksByCategory = bookService.getBookListByCategory(bookCategory);
+        if (booksByCategory == null || booksByCategory.isEmpty()) {
+            throw new CategoryException();
+        }
         // 키 이름 : 북 리스트 ,
         model.addAttribute("bookList", booksByCategory); // 값을 모델 속성 booklist에 저장 후 출력
         return "books"; // books.jsp
@@ -111,6 +117,16 @@ public class BookController {
     public void initBinder(WebDataBinder binder) {
         binder.setAllowedFields("bookId","name","unitPrice","author", "description",
                 "publisher","category","unitsInStock","totalPages", "releaseDate", "condition", "bookImage");
+    }
+
+    @ExceptionHandler(value={BookIdException.class})
+    public ModelAndView handleError(HttpServletRequest req, BookIdException exception) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("invalidBookId", exception.getBookId());
+        mav.addObject("exception", exception);
+        mav.addObject("url", req.getRequestURL()+"?"+req.getQueryString());
+        mav.setViewName("errorBook");
+        return mav;
     }
 
     @GetMapping("/logout")
