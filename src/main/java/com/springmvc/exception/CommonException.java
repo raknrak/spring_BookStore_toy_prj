@@ -6,9 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 public class CommonException {
-
     @ExceptionHandler(RuntimeException.class)
-    private ModelAndView handleErrorCommon(Exception exception) {
-
+    private ModelAndView handleErrorCommon(Exception e) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("exception", e );
+        modelAndView.setViewName("errorCommon");
+        return modelAndView;
     }
 }
