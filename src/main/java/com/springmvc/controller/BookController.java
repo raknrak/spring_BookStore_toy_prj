@@ -5,7 +5,6 @@ import com.springmvc.exception.BookIdException;
 import com.springmvc.exception.CategoryException;
 import com.springmvc.service.BookService;
 import com.springmvc.validator.BookValidator;
-import com.springmvc.validator.UnitsInStockValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,12 +29,10 @@ public class BookController {
     private BookService bookService;
 
     //@Autowired
-    //UnitsInStockValidator 인스턴스 선언
-   //private UnitsInStockValidator unitsInStockValidator;
+   //private UnitsInStockValidator unitsInStockValidator; //UnitsInStockValidator 인스턴스 선언
 
     @Autowired
-    //BookValidator 인스턴스 선언
-    private BookValidator bookValidator;
+    private BookValidator bookValidator;     //BookValidator 인스턴스 선언
 
     @GetMapping
     public String requestBookList(Model model){
@@ -106,7 +103,7 @@ public class BookController {
     public String submitAddNewBook(@Valid @ModelAttribute("NewBook") Book book,
                                    BindingResult result) {
         if (result.hasErrors()){
-            return "addbooks";
+            return "addBook";
     }
 
         // 이미지 등록을 위한 수정
@@ -137,7 +134,7 @@ public class BookController {
         // binder.setValidator(unitsInStockValidator);// 생성한 unitsInStockValidator 설정
         binder.setValidator(bookValidator);// 생성한 bookValidator 설정
         binder.setAllowedFields("bookId","name","unitPrice","author", "description",
-                "publisher","category","unitsInStock","totalPages", "releaseDate", "condition", "bookImage");
+                "publisher","category","unitsInStock","totalPages", "releaseDate", "condition", "bookImage","language");
     }
 
     @ExceptionHandler(value={BookIdException.class})

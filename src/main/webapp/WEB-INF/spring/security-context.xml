@@ -13,8 +13,8 @@
 	<http auto-config="true" use-expressions="true">
 
 		<intercept-url pattern="/books/add"  access="hasAuthority('ROLE_ADMIN')" />
-		<intercept-url pattern="/**"  access="permitAll" />
-		<intercept-url pattern="/upload/**" access="permitAll()"/>
+		<!--<intercept-url pattern="/**"  access="permitAll" />
+		<intercept-url pattern="/upload/**" access="permitAll()"/>-->
 		<!--로그인 페이지 걍로, 인증 성공시 경로, 인증 실패시 경로, 사용자 계정 이름, 사용자 계정 비밀번호.	-->
 
 		<form-login login-page="/login"

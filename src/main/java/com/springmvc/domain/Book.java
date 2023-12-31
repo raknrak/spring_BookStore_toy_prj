@@ -15,13 +15,13 @@ import javax.validation.constraints.*;
 
 public class Book {
     @BookId
-    @Pattern(regexp="ISBN[1-9]+", message = "{Pattern.NewBook.bookId}")       // 1부터 9 까지 연속된 숫자가 오는 정규 표현식 패턴
+    @Pattern(regexp="ISBN[1-9]+", message="{Pattern.NewBook.bookId}")      // 1부터 9 까지 연속된 숫자가 오는 정규 표현식 패턴
     private String bookId;            // 도서Id
-    @Size(min=4, max=50, message = "{Size.NewBook.name}")            // 최소 4자 이상, 최대 50자 이하.
+    @Size(min=4, max=50, message="{Size.NewBook.name}")            // 최소 4자 이상, 최대 50자 이하.
     private String name;              // 도서명
-    @Min(value=0, message = "{Min.NewBook.unitPrice}")
-    @Digits(integer=8,fraction = 2, message = "{Digits.NewBook.unitPrice}")
-    @NotNull
+    @Min(value=0, message="{Min.NewBook.unitPrice}")
+    @Digits(integer=8, fraction=2, message="{Digits.NewBook.unitPrice}")
+    @NotNull(message= "{NotNull.NewBook.unitPrice}")
     private int unitPrice;            // 도서 가격
     private String author;            // 저자
     private String description;       // 설명
