@@ -4,6 +4,8 @@ import com.springmvc.domain.Book;
 import com.springmvc.exception.BookIdException;
 import com.springmvc.exception.CategoryException;
 import com.springmvc.service.BookService;
+import com.springmvc.validator.BookValidator;
+import com.springmvc.validator.UnitsInStockValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,14 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+
+    //@Autowired
+    //UnitsInStockValidator 인스턴스 선언
+   //private UnitsInStockValidator unitsInStockValidator;
+
+    @Autowired
+    //BookValidator 인스턴스 선언
+    private BookValidator bookValidator;
 
     @GetMapping
     public String requestBookList(Model model){
@@ -124,6 +134,8 @@ public class BookController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
+        // binder.setValidator(unitsInStockValidator);// 생성한 unitsInStockValidator 설정
+        binder.setValidator(bookValidator);// 생성한 bookValidator 설정
         binder.setAllowedFields("bookId","name","unitPrice","author", "description",
                 "publisher","category","unitsInStock","totalPages", "releaseDate", "condition", "bookImage");
     }

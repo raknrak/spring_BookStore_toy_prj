@@ -1,5 +1,6 @@
 package com.springmvc.domain;
 
+import com.springmvc.validator.BookId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,12 +14,13 @@ import javax.validation.constraints.*;
 @NoArgsConstructor  // 일반 생성자
 
 public class Book {
-    @Pattern(regexp="ISBN[1-9]+")       // 1부터 9 까지 연속된 숫자가 오는 정규 표현식 패턴
+    @BookId
+    @Pattern(regexp="ISBN[1-9]+", message = "{Pattern.NewBook.bookId}")       // 1부터 9 까지 연속된 숫자가 오는 정규 표현식 패턴
     private String bookId;            // 도서Id
-    @Size(min=4, max=50)                // 최소 4자 이상, 최대 50자 이하.
+    @Size(min=4, max=50, message = "{Size.NewBook.name}")            // 최소 4자 이상, 최대 50자 이하.
     private String name;              // 도서명
-    @Min(value=0)
-    @Digits(integer=8,fraction = 2)
+    @Min(value=0, message = "{Min.NewBook.unitPrice}")
+    @Digits(integer=8,fraction = 2, message = "{Digits.NewBook.unitPrice}")
     @NotNull
     private int unitPrice;            // 도서 가격
     private String author;            // 저자
