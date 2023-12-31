@@ -7,12 +7,14 @@ import com.springmvc.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +92,13 @@ public class BookController {
         return "addBook";
     }
     @PostMapping("/add")
-    public String submitAddNewBook(@ModelAttribute("NewBook") Book book) {
+    //public String submitAddNewBook(@ModelAttribute("NewBook") Book book) { 유효성 검사 수정
+    public String submitAddNewBook(@Valid @ModelAttribute("NewBook") Book book,
+                                   BindingResult result) {
+        if (result.hasErrors()){
+            return "addbooks";
+    }
+
         // 이미지 등록을 위한 수정
         MultipartFile bookImage = book.getBookImage();
 
@@ -107,6 +115,7 @@ public class BookController {
         bookService.setNewBook(book);
         return "redirect:/books";  // 웹 요청 URL을 강제로 /books로 이동시켜 매핑함.
     }
+
     @ModelAttribute // 메서드 수준의 @ModelAttribute 선언
     public void addAttribute(Model model) {
         // 모델 속성 addTitle에 신규 도서 등록을 저장함.
