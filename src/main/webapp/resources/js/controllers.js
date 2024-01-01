@@ -4,9 +4,9 @@ function addToCart(action) {
     alert("도서가 장바구니에 추가되었습니다!");
 }
 
-function removeFromCart(action){
+function removeFromCart(action) {
     document.removeForm.action = action;
-    document.removeFrom.submit();
+    document.removeForm.submit();
     window.location.reload();
 }
 

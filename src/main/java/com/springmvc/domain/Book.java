@@ -7,13 +7,15 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
 //@AllArgsConstructor // 파라미터가 들어가는 생성자
 @NoArgsConstructor  // 일반 생성자
 
-public class Book {
+public class Book implements Serializable {
+    private static final long serialVersionUID = -7715651009026349175L;
     @BookId
     @Pattern(regexp="ISBN[1-9]+", message="{Pattern.NewBook.bookId}")      // 1부터 9 까지 연속된 숫자가 오는 정규 표현식 패턴
     private String bookId;            // 도서Id
